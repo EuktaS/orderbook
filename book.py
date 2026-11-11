@@ -1,20 +1,3 @@
-"""Limit order book with price-time priority.
-
-Design notes
-------------
-* Prices are integer ticks and quantities are integers. No floats touch the
-  matching path, so there is no rounding drift and results are reproducible.
-* Each side keeps a dict of price -> Level (a FIFO deque plus a running total)
-  and a sorted list of price keys. Keys are stored so that the *best* price is
-  always the last element, which makes best-price lookup and removal O(1).
-  Asks are stored negated to get that property from the same code path.
-* Cancels are lazy at the queue level: the order is flagged dead and the level
-  total is decremented immediately, but the deque entry is only dropped when
-  matching reaches it. Cancel is O(1) amortized instead of O(queue length).
-* Every command is appended to a journal. Replaying the journal into a fresh
-  book yields an identical book (see ``replay``), which is how the tests check
-  determinism and how you would implement crash recovery.
-"""
 from __future__ import annotations
 
 from bisect import bisect_left, insort
