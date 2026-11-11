@@ -1,18 +1,3 @@
-"""Market-making simulation on top of the matching engine.
-
-A latent fair value does a random walk. Noise traders supply resting liquidity
-and occasional market orders. A stale-quote picker ("informed" flow) trades
-against any quote that is more than ``edge`` ticks away from fair value, which
-creates adverse selection. A market maker quotes both sides and has to manage
-inventory risk against it.
-
-Two quoting policies are compared:
-  * FixedSpread: symmetric quotes around the mid, ignores inventory.
-  * InventorySkew: Avellaneda-Stoikov style. The reservation price is shifted
-    against inventory and the half-spread grows with volatility and risk aversion.
-
-All randomness comes from one seeded ``random.Random`` so runs are reproducible.
-"""
 from __future__ import annotations
 
 import math
