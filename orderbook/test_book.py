@@ -7,7 +7,7 @@ from orderbook import OrderBook, Side, Status, TIF, replay
 B, S = Side.BUY, Side.SELL
 
 
-# ------------------------------------------------------------ unit behaviour
+# unit behaviour
 def test_price_time_priority():
     ob = OrderBook()
     a = ob.submit(S, 5, 101).order_id
